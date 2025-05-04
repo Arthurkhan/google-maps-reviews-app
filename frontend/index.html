@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Maps Reviews Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <header class="bg-primary text-white text-center py-3 mb-4">
+            <h1>Google Maps Reviews Dashboard</h1>
+        </header>
+        
+        <!-- Business Selector -->
+        <div class="business-selector mb-4 text-center">
+            <div class="btn-group" role="group" aria-label="Business selector">
+                <button type="button" class="btn btn-outline-primary active" data-business="all">All Businesses</button>
+                <button type="button" class="btn btn-outline-primary" data-business="business1">Business 1</button>
+                <button type="button" class="btn btn-outline-primary" data-business="business2">Business 2</button>
+                <button type="button" class="btn btn-outline-primary" data-business="business3">Business 3</button>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="table-tab" data-bs-toggle="tab" data-bs-target="#table" type="button" role="tab" aria-controls="table" aria-selected="true">Table View</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="dashboard-tab" data-bs-toggle="tab" data-bs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Dashboard</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="analysis-tab" data-bs-toggle="tab" data-bs-target="#analysis" type="button" role="tab" aria-controls="analysis" aria-selected="false">Analysis</button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="myTabContent">
+            <!-- Table View Tab -->
+            <div class="tab-pane fade show active" id="table" role="tabpanel" aria-labelledby="table-tab">
+                <div class="row mb-3">
+                    <div class="col">
+                        <h2>Review Data</h2>
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="reviewsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Stars</th>
+                                        <th>Name</th>
+                                        <th>Text</th>
+                                        <th>Date Published</th>
+                                        <th>Reviewer # Reviews</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reviewsTableBody">
+                                    <!-- Data will be loaded here -->
+                                    <tr>
+                                        <td colspan="6" class="text-center">Loading data...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Tab -->
+            <div class="tab-pane fade" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header">Average Rating</div>
+                            <div class="card-body">
+                                <h3 id="averageRating">Calculating...</h3>
+                                <div class="progress mt-2">
+                                    <div id="ratingProgressBar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header">Total Reviews</div>
+                            <div class="card-body">
+                                <h3 id="totalReviews">Calculating...</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header">Rating Distribution</div>
+                            <div class="card-body">
+                                <canvas id="ratingChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header">Reviews Over Time</div>
+                            <div class="card-body">
+                                <canvas id="timelineChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis Tab -->
+            <div class="tab-pane fade" id="analysis" role="tabpanel" aria-labelledby="analysis-tab">
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header">Sentiment Analysis</div>
+                            <div class="card-body">
+                                <canvas id="sentimentChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header">Common Keywords</div>
+                            <div class="card-body">
+                                <canvas id="keywordsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">AI Insights</div>
+                            <div class="card-body">
+                                <div id="aiInsights">
+                                    <p>AI-generated insights will appear here once you connect your analysis data.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
